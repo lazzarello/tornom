@@ -1,0 +1,27 @@
+Ubuntu Lucid AMI: ami-6407f20d
+building: https://trac.transmissionbt.com/wiki/Building
+transmission RPC URL:
+http://ec2-204-236-209-34.compute-1.amazonaws.com:9091/
+u: transmission
+p: foobar
+download dir: /var/lib/transmission-daemon/downloads
+config dir: /etc/transmission-daemon/settings.json
+
+My IP: 71.167.144.252
+
+/etc/nginx/sites-available/default
+
+server {
+	listen   80 default;
+	server_name  localhost;
+
+	access_log  /var/log/nginx/localhost.access.log;
+
+	location / {
+		root   /var/lib/transmission-daemon/downloads;
+		index  index.html index.htm;
+		autoindex on;
+	}
+}
+
+email notifier script: https://trac.transmissionbt.com/wiki/Scripts/EmailNotifier
