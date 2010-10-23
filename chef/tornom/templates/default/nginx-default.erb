@@ -1,0 +1,12 @@
+server {
+	listen   80 default;
+	server_name  localhost;
+
+	access_log  /var/log/nginx/localhost.access.log;
+
+	location / {
+		root   <%= node[:nginx][:docroot] %>;
+		index  index.html index.htm;
+		autoindex on;
+	}
+}
