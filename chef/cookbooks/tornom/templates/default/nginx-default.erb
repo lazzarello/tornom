@@ -4,6 +4,11 @@ server {
 
 	access_log  /var/log/nginx/localhost.access.log;
 
+	location /bandwidth {
+	  alias /var/cache/munin/www/;
+	  index	index.html;
+	}
+
 	location / {
 		root   <%= node[:nginx][:docroot] %>;
 		index  index.html index.htm;
