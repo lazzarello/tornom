@@ -2,6 +2,7 @@
 # Cookbook Name:: tornom
 # Recipe:: default
 #
+include_recipe "postfix"
 
 directory "/mnt/downloads" do
   action :create
@@ -10,6 +11,7 @@ end
 
 package "transmission-daemon"
 package "nginx"
+package "munin"
 
 service "transmission-daemon" do
   supports :restart => true, :reload => true
