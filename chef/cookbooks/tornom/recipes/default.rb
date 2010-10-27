@@ -23,16 +23,16 @@ end
 
 template "/etc/transmission-daemon/settings.json" do
   source "settings.json.erb"
-  owner
-  group
-  mode
+  owner "debian-transmission"
+  group "debian-transmission"
+  mode 0700
   notifies :reload, "service[transmission-daemon]"
 end
 
 template "/etc/nginx/sites-available/default" do
   source "nginx-default.erb"
-  owner
-  group
-  mode
+  owner "root"
+  group "root"
+  mode 0600
   notifies :restart, "service[nginx]"
 end
