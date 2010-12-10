@@ -38,3 +38,5 @@ template "/etc/nginx/sites-available/default" do
   mode 0600
   notifies :restart, "service[nginx]"
 end
+
+log "Tornom installed, go to http://#{node.ec2.public_hostname}:9091 to operate"
