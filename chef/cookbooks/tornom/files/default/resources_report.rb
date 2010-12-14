@@ -1,7 +1,7 @@
 #!/usr/bin/ruby -w
 
 require 'rubygems'
-require 'RRD'
+#require 'RRD'
 
 # price units are US dollars
 instance_hourly_price = 0.085
