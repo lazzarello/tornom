@@ -45,4 +45,14 @@ cookbook_file "/usr/local/bin/resources_report.rb" do
   mode 0755
 end
 
+cookbook_file "/etc/init.d/tornom_resources_report" do
+  source "tornom_resources_report"
+  mode 0755
+end
+
+template "/etc/default/tornom" do
+  source "tornom_defaults"
+  mode 0644
+end
+
 log "Tornom installed, go to http://#{node.ec2.public_hostname}:9091 to operate"
