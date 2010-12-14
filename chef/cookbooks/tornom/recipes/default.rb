@@ -40,4 +40,9 @@ template "/etc/nginx/sites-available/default" do
   notifies :restart, "service[nginx]"
 end
 
+cookbook_file "/usr/local/bin/resources_report.rb" do
+  source "resources_report.rb"
+  mode 0755
+end
+
 log "Tornom installed, go to http://#{node.ec2.public_hostname}:9091 to operate"
