@@ -1,3 +1,6 @@
 {
-  "run_list": ["recipe[tornom]"]
+  "run_list": ["recipe[tornom]"],
+  "tornom": { 
+    "recipient_email": "lee@rockingtiger.com"
+  }
 }

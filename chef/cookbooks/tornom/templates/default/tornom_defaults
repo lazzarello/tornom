@@ -1,0 +1,3 @@
+# defaults for /etc/init.d/tornom_resources_report script to tally usage prior
+# to shutdown or reboot
+recipient="<%= node[:tornom][:recipient_email] %>"

@@ -1,0 +1,16 @@
+#!/bin/sh
+# /etc/init.d/tornom_resources_report
+
+source /etc/default/tornom
+
+case "$1" in
+  start)
+    /usr/local/bin/resources_report.rb | mail -s "Tornom Resources Used" ${recipient}
+    ;;
+  *)
+    echo "Usage: /etc/init.d/tornom_resources_report {start}"
+    exit 1
+    ;;
+esac
+
+exit 0
