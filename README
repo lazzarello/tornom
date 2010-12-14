@@ -1,0 +1,10 @@
+Tornom: Anonymous Bittorrent In The Cloud
+
+1) create EC2 instance with bootstrap_chef.sh as user_data
+2) run deploy_chef_env.rb ec2_public_hostname
+3) follow login instructions
+4) visit tornom on the web
+5) download stuff on port 80
+6) terminate instance and get email report of your EC2 bill
+
+A lot of these step are not yet implemented.
