@@ -12,6 +12,7 @@ end
 package "transmission-daemon"
 package "nginx"
 package "munin"
+package "mailutils"
 
 service "transmission-daemon" do
   supports :restart => true, :reload => true
