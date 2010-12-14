@@ -10,7 +10,7 @@ inbound_bandwidth_price_per_gb = 0.10
 outbound_bandwidth_price_per_gb = 0.15
 
 uptime = File.read("/proc/uptime")
-network_device = "wlan0"
+network_device = "eth0"
 rrd = "/var/lib/munin/localdomain/localhost.localdomain-if_#{network_device}-up-c.rrd"
 start = Time.now.to_i
 netstats = `cat /proc/net/dev | grep #{network_device}`.split
