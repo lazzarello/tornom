@@ -1,6 +1,6 @@
 #!/bin/bash
 apt-get update
-apt-get --assume-yes install ruby1.8 rubygems irb libopenssl-ruby build-essential ruby1.8-dev
+apt-get --assume-yes install ruby ruby1.8 rubygems irb libopenssl-ruby build-essential ruby1.8-dev
 gem install chef --no-rdoc --no-ri
 mkdir /tmp/chef-solo
 chmod 777 /tmp/chef-solo
