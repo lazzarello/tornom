@@ -8,3 +8,11 @@ Tornom: Anonymous Bittorrent In The Cloud
 6) terminate instance and get email report of your EC2 bill
 
 A lot of these step are not yet implemented.
+Work in progress. This is a chef cookbook for a torrent download/seed/download system in the cloud. The intended deploy
+target is Amazon EC2. I'll be working in this repository and improving things in public.
+
+Ubuntu Lucid AMI: ami-6407f20d
+email notifier script: https://trac.transmissionbt.com/wiki/Scripts/EmailNotifier
+
+Bootstrapping is done with the included scripts. Ubuntu is pretty stupid with it's dependence on sudo and how that
+effects paths and aliases. I've printed a snarky message for now.
