@@ -4,10 +4,10 @@ require 'rubygems'
 #require 'RRD'
 
 # price units are US dollars
-instance_hourly_price = 0.085
-inbound_bandwidth_price_per_gb = 0.10
+INSTANCE_HOURLY_PRICE = 0.085
+INBOUND_BANDWIDTH_PRICE_PER_GB = 0.10
 # 1GB to 10000GB is the following price
-outbound_bandwidth_price_per_gb = 0.15
+OUTBOUND_BANDWIDTH_PRICE_PER_GB = 0.15
 
 uptime = File.read("/proc/uptime")
 network_device = "eth0"
@@ -43,15 +43,17 @@ def calculate_outbound_cost(bytes)
   if (bytes.to_i < 1000000000)
     return "0.00"
   else
-    return (bytes.to_f / 1000000000) * outbound_bandwidth_price_per_gb 
+    return (bytes.to_f / 1000000000) * OUTBOUND_BANDWIDTH_PRICE_PER_GB 
   end
 end
 
 
-instance_cost = sprintf "%.2f", (instance_hourly_price * uptime_hours)
+instance_cost = sprintf "%.2f", (INSTANCE_HOURLY_PRICE * uptime_hours)
 outbound_cost = sprintf "%.2f", calculate_outbound_cost(outbound_bytes)
-inbound_cost = sprintf "%.2f", ((inbound_bytes.to_f / 1000000000) * inbound_bandwidth_price_per_gb)
+inbound_cost = sprintf "%.2f", ((inbound_bytes.to_f / 1000000000) * INBOUND_BANDWIDTH_PRICE_PER_GB)
 
 puts "Your instance hours cost US $#{instance_cost}"
+puts "Bytes outbound = #{outbound_bytes}"
 puts "Your outbound bandwidth cost is US $#{outbound_cost}"
+puts "Bytes inbound = #{inbound_bytes}"
 puts "Your inbound bandwidth cost is US $#{inbound_cost}"
