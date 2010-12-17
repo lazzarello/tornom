@@ -1,14 +1,22 @@
-#!/bin/sh
-# /etc/init.d/tornom_resources_report
+#!/bin/sh -e
+### BEGIN INIT INFO
+# Provides:	  tornom_resources_report
+# Default-Start:  0 1 6
+# Short-Description: Gather usage metrics prior to halt or reboot and email to recipient
+### END INIT INFO
 
-source /etc/default/tornom
+NAME=tornom_resources_report
+
+export PATH="${PATH:+$PATH:}/sbin"
+
+[ -e /etc/default/$NAME ] && . /etc/default/$NAME
 
 case "$1" in
   start)
     /usr/local/bin/resources_report.rb | mail -s "Tornom Resources Used" ${recipient}
     ;;
   *)
-    echo "Usage: /etc/init.d/tornom_resources_report {start}"
+    echo "Usage: /etc/init.d/$NAME {start}"
     exit 1
     ;;
 esac
