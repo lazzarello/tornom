@@ -1,0 +1,199 @@
+{
+  "attributes": {
+    "snmp/trapsinks": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "array",
+      "recipes": [
+
+      ],
+      "description": "Trapsink hostnames for NMS systems",
+      "display_name": "trapsinks"
+    },
+    "snmp/syslocationVirtual": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "Virtual Server",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "syslocation for Virtual Machines",
+      "display_name": "syslocation Virtual"
+    },
+    "snmp/community": {
+      "required": "recommended",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "public",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "Community String, defaults to public",
+      "display_name": "Community String"
+    },
+    "snmp/syscontact": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "Root <root@localhost>",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "System Contact",
+      "display_name": "syscontact"
+    },
+    "snmp/service": {
+      "required": "optional",
+      "calculated": true,
+      "choice": [
+
+      ],
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "SNMP Daemon name",
+      "display_name": "SNMPD"
+    },
+    "snmp/is_dnsserver": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "false",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "Enable snmp_rndc_stats SNMP Extend monitor",
+      "display_name": "is_dnsserver"
+    },
+    "snmp": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "type": "hash",
+      "recipes": [
+
+      ],
+      "description": "Hash of SNMP attributes",
+      "display_name": "SNMP"
+    },
+    "snmp/trapcommunity": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "public",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "SNMP Trap Community",
+      "display_name": "trapcommunity"
+    },
+    "snmp/install_utils": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "false",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "Enable installation of SNMP utilities, like snmpwalk",
+      "display_name": "install_utils"
+    },
+    "snmp/full_systemview": {
+      "required": "recommended",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "false",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "Enable full systemview for NMS systems",
+      "display_name": "full_systemview"
+    },
+    "snmp/syslocationPhysical": {
+      "required": "optional",
+      "calculated": false,
+      "choice": [
+
+      ],
+      "default": "Server Room",
+      "type": "string",
+      "recipes": [
+
+      ],
+      "description": "syslocation for Physical Machines",
+      "display_name": "syslocation Physical"
+    }
+  },
+  "providing": {
+  },
+  "long_description": "= DESCRIPTION:\n\nInstalls and configures snmpd. Optionally install SNMP utilities,\nsuch as snmpwalk.\n\nThe SNMP multiplex (smuxpeer) line will be set for Dell OpenManage, if Dell\nmanufactured hardware is detected by Ohai.\n\n= DEPENDS:\n\nThis cookbook provides an SNMP Extend example to collect DNS RNDC statistics.\nThe Extend script is written in Perl and depends on the CPAN module \"version\".\n\nThere is a loose dependency recommending the \"perl\" cookbook.\nIf you have no need for the SNMP Extend example included, remove the\n\"depends perl\" line from metadata.rb. Then run 'knife cookbook metadata snmp'\nbefore uploading to the Chef server.\n\n= ATTRIBUTES:\n\nNotable overridable attributes are as follows.  It is recommended to override\nthese following attributes to best suit your own environment.\n\n* snmp[:community]\n  - SNMP Community String, default is \"public\".\n\n* snmp[:trapcommunity]\n  - SNMP Community Trap String, default is \"public\".\n\n* snmp[:trapsinks]\n  - Array of trapsink hosts, and optionall Community Trap strings.\n    This is an empty array by default.\n\n* snmp[:install_optional]\n  - Boolean to install optional SNMP utilities, default is false.\n\n* snmp[:syscontact]\n  - String to set a name, and e-mail address for systems.\n    Default is \"Root <root@localhost>\"\n\n* snmp[:syslocationPhysical]\n  - String to set the location for physical systems.\n    Default is \"Server Room\".\n\n* snmp[:syslocationVirtual]\n  - String to set the location for Virtual Machines.\n    Default is \"Virtual Server\".\n\n* snmp[:full_systemview]\n  - Boolean to include the full systemview.\n    This defaults to \"false\" as many distributions ship this way to speed up\n     snmpwalk.  However, if you're running SNMP Network Management System,\n     you'll want to override this as \"true\" on your systems.\n\n* snmp[:is_dnsserver]\n  - Boolean to use the RNDC stat Extend example included.\n    This defaults to \"false\"\n\n= USAGE:\n\nHere is a full example featuring all the overridable attributes.\nYou can apply these override attributes in a role, or node context.\n\n  override_attributes \"snmp\" => {\n    \"community\" => \"secret\",\n    \"full_systemview\" => true,\n    \"install_optional\" => true,\n    \"trapsinks\" => [ \"zenoss.example.com\", \"nagios.example.com\" ],\n    \"syslocationPhysical\" => \"Server Room\",\n    \"syslocationVirtual\" => \"Cloud - Virtual Pool\",\n    \"syscontact\" => \"sysadmin@example.com\"\n  }\n\n= Acknowledgements\n\nThanks to Sami Haahtinen <zanaga> on Freenode/#chef for testing,\nand feedback pertinent to the Debian/Ubuntu platforms.\n\n= AUTHOR AND LICENSE:\n\nAuthor:: Eric G. Wolfe (<wolfe21@marshall.edu>)\n\nCopyright 2010\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n",
+  "recipes": {
+    "snmp": "Installs and configures snmpd"
+  },
+  "license": "Apache 2.0",
+  "maintainer": "Eric G. Wolfe",
+  "replacing": {
+  },
+  "dependencies": {
+    "perl": [
+
+    ]
+  },
+  "maintainer_email": "wolfe21@marshall.edu",
+  "groupings": {
+  },
+  "recommendations": {
+  },
+  "description": "Installs/Configures snmp on redhat, centos, ubuntu, debian",
+  "suggestions": {
+  },
+  "platforms": {
+    "debian": [
+
+    ],
+    "fedora": [
+
+    ],
+    "centos": [
+
+    ],
+    "ubuntu": [
+
+    ],
+    "redhat": [
+
+    ]
+  },
+  "version": "0.0.8",
+  "name": "snmp",
+  "conflicting": {
+  }
+}
