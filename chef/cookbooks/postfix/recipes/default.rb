@@ -26,6 +26,8 @@ service "postfix" do
   action :enable
 end
 
+package "mailutils"
+
 %w{main master}.each do |cfg|
   template "/etc/postfix/#{cfg}.cf" do
     source "#{cfg}.cf.erb"

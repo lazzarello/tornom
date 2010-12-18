@@ -12,7 +12,11 @@ end
 package "transmission-daemon"
 package "nginx"
 package "munin"
-package "mailutils"
+package "librrd-dev"
+package "snmpd"
+
+gem_package "librrd"
+gem_package "snmp"
 
 service "transmission-daemon" do
   supports :restart => true, :reload => true
