@@ -40,11 +40,10 @@ end
 if node[:snmp][:install_utils]
   case node[:platform]
   when "centos","redhat","fedora"
-    package_name "net-snmp-utils"
+    package "net-snmp-utils"
   when "debian","ubuntu"
-    package_name "snmp"
+    package "snmp"
   end
-  action :install
 end
 
 if node[:snmp][:is_dnsserver]
