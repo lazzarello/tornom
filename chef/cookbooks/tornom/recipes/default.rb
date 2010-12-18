@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 include_recipe "postfix"
+include_recipe "snmp"
 
 directory "/mnt/downloads" do
   action :create
@@ -13,7 +14,6 @@ package "transmission-daemon"
 package "nginx"
 package "munin"
 package "librrd-dev"
-package "snmpd"
 
 gem_package "librrd"
 gem_package "snmp"
