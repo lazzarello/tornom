@@ -1,18 +1,12 @@
 Tornom: Anonymous Bittorrent In The Cloud
 
-1) create EC2 instance with bootstrap_chef.sh as user_data
-2) run deploy_chef_env.rb ec2_public_hostname
-3) follow login instructions
-4) visit tornom on the web
-5) download stuff on port 80
-6) terminate instance and get email report of your EC2 bill
+1) edit bootstrap script to include your email address
+2) create EC2 instance with bootstrap_chef.sh as user_data
+3) download stuff on port 80
+4) terminate instance and get email report of your EC2 bill
 
-A lot of these step are not yet implemented.
 Work in progress. This is a chef cookbook for a torrent download/seed/download system in the cloud. The intended deploy
-target is Amazon EC2. I'll be working in this repository and improving things in public.
+target is Amazon EC2.
 
 Ubuntu Lucid AMI: ami-6407f20d
 email notifier script: https://trac.transmissionbt.com/wiki/Scripts/EmailNotifier
-
-Bootstrapping is done with the included scripts. Ubuntu is pretty stupid with it's dependence on sudo and how that
-effects paths and aliases. I've printed a snarky message for now.
