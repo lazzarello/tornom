@@ -1,4 +1,4 @@
-Tornom: Anonymous Bittorrent In The Cloud
+Tornom: Evasive Bittorrent In The Cloud
 
 1) edit bootstrap script to include your email address
 2) create EC2 instance with bootstrap_chef.sh as user_data
@@ -9,4 +9,3 @@ Work in progress. This is a chef cookbook for a torrent download/seed/download s
 target is Amazon EC2.
 
 Ubuntu Lucid AMI: ami-6407f20d
-email notifier script: https://trac.transmissionbt.com/wiki/Scripts/EmailNotifier
