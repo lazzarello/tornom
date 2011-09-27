@@ -1,0 +1,24 @@
+#!/usr/bin/ruby
+# Bootstrap server with fog and SSH to it
+
+require 'rubygems'
+require 'fog'
+require 'optiflag'
+
+f = File.open("bootstrap_chef.sh")
+server = Fog::Compute.new(
+  :provider => "AWS",
+  :aws_access_key_id => Fog::credentials[:aws_access_key_id],
+  :aws_secret_access_key => Fog::credentials[:aws_secret_access_key],
+  :image_id => Fog::credentials[:ami_id],
+  :key_id => Fog::credentials[:key_id],
+  :user_data = f.read
+  )
+
+  # TODO: put a better progress loop here
+server.wait_for { ready? }
+
+  # TODO: ssh to server when running
+if ( server.state == "running" )
+  puts server.public_ip_address
+end
