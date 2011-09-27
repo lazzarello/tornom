@@ -10,8 +10,8 @@ server = Fog::Compute.new(
   :provider => "AWS",
   :aws_access_key_id => Fog::credentials[:aws_access_key_id],
   :aws_secret_access_key => Fog::credentials[:aws_secret_access_key],
-  :image_id => Fog::credentials[:ami_id],
-  :key_id => Fog::credentials[:key_id],
+  :image_id => Fog::credentials[:image_id],
+  :key_name => Fog::credentials[:key_name],
   :user_data = f.read
   )
 
