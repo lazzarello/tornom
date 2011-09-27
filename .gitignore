@@ -1,3 +1,4 @@
 .DS_Store
 *.swp
 snmp_tutorial.txt
+config/fog
