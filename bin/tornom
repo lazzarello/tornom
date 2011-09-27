@@ -10,15 +10,17 @@ f = File.open(
         File.join(
           File.dirname(__FILE__),"../config/bootstrap_chef.sh")))
 
-server = Fog::Compute.new(
+connection = Fog::Compute.new(
   :provider => "AWS",
   :aws_access_key_id => Fog::credentials[:aws_access_key_id],
-  :aws_secret_access_key => Fog::credentials[:aws_secret_access_key],
+  :aws_secret_access_key => Fog::credentials[:aws_secret_access_key]
+  )
+
+server = connection.servers.create(
   :image_id => Fog::credentials[:image_id],
   :key_name => Fog::credentials[:key_name],
   :user_data => f.read
-  )
-
+)
   # TODO: put a better progress loop here
 server.wait_for { ready? }
 
