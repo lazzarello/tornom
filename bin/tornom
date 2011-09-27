@@ -5,14 +5,18 @@ require 'rubygems'
 require 'fog'
 require 'optiflag'
 
-f = File.open("bootstrap_chef.sh")
+f = File.open(
+      File.expand_path(
+        File.join(
+          File.dirname(__FILE__),"../config/bootstrap_chef.sh")))
+
 server = Fog::Compute.new(
   :provider => "AWS",
   :aws_access_key_id => Fog::credentials[:aws_access_key_id],
   :aws_secret_access_key => Fog::credentials[:aws_secret_access_key],
   :image_id => Fog::credentials[:image_id],
   :key_name => Fog::credentials[:key_name],
-  :user_data = f.read
+  :user_data => f.read
   )
 
   # TODO: put a better progress loop here
