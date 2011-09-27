@@ -1,7 +1,8 @@
 Tornom: Evasive Bittorrent In The Cloud
 
-1) edit bootstrap script to include your email address
-2) create EC2 instance with bootstrap_chef.sh as user_data
+1) edit bootstrap script to include your email address and config/fog for with
+your AWS information.
+2) create EC2 instance with bin/tornom
 3) download stuff on port 80
 4) terminate instance and get email report of your EC2 bill
 
