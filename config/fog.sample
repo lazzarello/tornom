@@ -9,7 +9,7 @@
 :default:
   :aws_access_key_id: 
   :aws_secret_access_key: 
-  :image_id:
+  :image_id: ami-0ce41865
   :key_name:
   :bluebox_api_key:
   :bluebox_customer_id:
