@@ -6,6 +6,7 @@ require 'net/ping'
 require 'fog'
 require 'optiflag'
 
+# The ENV['FOG_RC'] variable should be set to the configuration here.
 f = File.open(
       File.expand_path(
         File.join(
@@ -23,22 +24,20 @@ server = connection.servers.create(
   :user_data => f.read
 )
 server.wait_for { 
-  ## ready?
-  # The only thing this method does in the context of the AWS server object is
-  # match server.state to running. Expand the loop to check for HTTP
 
   if ( state == "running" )
     puts "Instance network up, booting services"
-    puts public_ip_address
+    webserver = Net::Ping::HTTP.new("http://#{dns_name}:80/")
+    result = webserver.ping?
+    if ( result == true )
+      puts "Your tornom node is up"
+      puts "http://#{dns_name}:9091/"
+      break
+    else
+      puts "Waiting for services..."
+    end
+  else
+    puts "Instance initializing..."
   end
 
-  webserver = Net::Ping::HTTP.new("http://#{dns_name}:80")
-  result = webserver.ping?
-  if ( result == true )
-    puts "Your tornom node is up"
-    puts "http://#{dns_name}:9091"
-    yield
-  else
-    puts "Waiting for server"
-  end
 }
