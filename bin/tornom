@@ -2,6 +2,7 @@
 # Bootstrap server with fog
 
 require 'rubygems'
+require 'net/ping'
 require 'fog'
 require 'optiflag'
 
@@ -21,11 +22,23 @@ server = connection.servers.create(
   :key_name => Fog::credentials[:key_name],
   :user_data => f.read
 )
-  # TODO: put a better progress loop here
-server.wait_for { ready? }
+server.wait_for { 
+  ## ready?
+  # The only thing this method does in the context of the AWS server object is
+  # match server.state to running. Expand the loop to check for HTTP
 
-  # TODO: loop until there is a response from the web server
-if ( server.state == "running" )
-  puts "Instance network up"
-  puts server.public_ip_address
-end
+  if ( state == "running" )
+    puts "Instance network up, booting services"
+    puts public_ip_address
+  end
+
+  webserver = Net::Ping::HTTP.new("http://#{dns_name}:80")
+  result = webserver.ping?
+  if ( result == true )
+    puts "Your tornom node is up"
+    puts "http://#{dns_name}:9091"
+    yield
+  else
+    puts "Waiting for server"
+  end
+}
