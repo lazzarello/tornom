@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
-# Bootstrap server with fog and SSH to it
+# Bootstrap server with fog
 
 require 'rubygems'
 require 'fog'
@@ -24,7 +24,8 @@ server = connection.servers.create(
   # TODO: put a better progress loop here
 server.wait_for { ready? }
 
-  # TODO: ssh to server when running
+  # TODO: loop until there is a response from the web server
 if ( server.state == "running" )
+  puts "Instance network up"
   puts server.public_ip_address
 end
