@@ -1,12 +1,47 @@
 #!/usr/bin/ruby
 # Bootstrap server with fog
 
+# $: <<
 require 'rubygems'
 require 'net/ping'
 require 'fog'
+# require 'config/tornom'
 require 'optiflag'
 
-# The ENV['FOG_RC'] variable should be set to the configuration here.
+fog_config = File.open(
+      File.expand_path(
+        File.join(
+          File.dirname(__FILE__),"../config/fog")))
+
+unless ENV['FOG_RC'] 
+  ENV['FOG_RC'] = fog_config.path
+end
+
+module BootArgs extend OptiFlagSet
+  flag "image_id" do
+    optional
+    alternate_forms "i"
+    description "The AMI id you wish to boot"
+    default Fog::credentials[:image_id]
+  end
+
+  flag "key_name" do
+    optional
+    alternate_forms "k"
+    description "The name of the key stored in Amazon for the root user"
+    default Fog::credentials[:key_name]
+  end
+
+  flag "instance_type" do
+    optional
+    alternate_forms "t"
+    description "The type of instance in Amazon'e size notation"
+    default "t1.micro"
+  end
+
+  and_process!
+end
+
 f = File.open(
       File.expand_path(
         File.join(
@@ -16,28 +51,36 @@ connection = Fog::Compute.new(
   :provider => "AWS",
   :aws_access_key_id => Fog::credentials[:aws_access_key_id],
   :aws_secret_access_key => Fog::credentials[:aws_secret_access_key]
-  )
+)
 
 server = connection.servers.create(
-  :image_id => Fog::credentials[:image_id],
-  :key_name => Fog::credentials[:key_name],
+  :image_id => ARGV.flags.image_id,
+  :key_name => ARGV.flags.key_name,
+  :flavor_id => ARGV.flags.instance_type,
   :user_data => f.read
 )
-server.wait_for { 
 
-  if ( state == "running" )
+#Fog.timeout = 60 
+duration = 0
+
+server.wait_for { 
+  if ( ready? )
     puts "Instance network up, booting services"
-    webserver = Net::Ping::HTTP.new("http://#{dns_name}:80/")
-    result = webserver.ping?
-    if ( result == true )
-      puts "Your tornom node is up"
-      puts "http://#{dns_name}:9091/"
-      break
-    else
-      puts "Waiting for services..."
-    end
+    break
   else
     puts "Instance initializing..."
   end
+  #puts "Instance initialization failed, manual intervention required. log into #{dns_name} as root and inspect /var/log/messages"
+}
 
+server.wait_for {
+  webserver = Net::Ping::HTTP.new("http://#{dns_name}:80/")
+  result = webserver.ping?
+  if ( ready? && result == true )
+    puts "Your tornom node is up"
+    puts "http://#{dns_name}:9091/"
+    break
+  else
+    puts "Waiting for services..."
+  end
 }
