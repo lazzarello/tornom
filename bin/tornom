@@ -84,3 +84,7 @@ server.wait_for {
     puts "Waiting for services..."
   end
 }
+
+version = ">= 0"
+gem 'fog', version
+load Gem.bin_path('fog', 'fog', version)
