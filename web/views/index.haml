@@ -1,0 +1,16 @@
+!!!
+%head
+  %title
+    Welcome to your tornom server
+  %body
+    %h1
+      Tornom: Evasive Bittorrent In The Cloud
+    %ul
+      %li
+        %a{ :href => "http://#{@host}:9091/"} Bittorrent Client
+      %li
+        %a{ :href => url('/metrics')} System Metrics
+      %li
+        %a{ :href => url('/downloads')} Download completed torrents
+      %li
+        %a{ :href => url('/terminate')} Terminate this server!
