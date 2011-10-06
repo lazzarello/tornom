@@ -7,10 +7,8 @@ mkdir /tmp/chef-solo
 chmod 777 /tmp/chef-solo
 wget http://tornom-installers.s3.amazonaws.com/tornom.tgz
 tar -xzf tornom.tgz
-cd tornom
 cp -r chef/cookbooks /tmp/chef-solo/
 cp chef/config/* /tmp/chef-solo/
-cat profile >> /home/ubuntu/.profile
 wget http://s3.amazonaws.com/ec2metadata/ec2-metadata
 chmod 755 ec2-metadata
 echo "tornom" > /etc/hostname
