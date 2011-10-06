@@ -1,12 +1,12 @@
 upstream sinatra {
-  server localhost:4567
+  server localhost:4567;
 }
 
 server {
 	listen   80 default;
   server_name  <%= node[:cloud][:public_hostname] %>;
-
   access_log  <%= node[:nginx][:access_log] %>;
+  root   <%= node[:nginx][:docroot] %>;
 
 	location /metrics {
     alias <%= node[:nginx][:metrics] %>;
@@ -14,7 +14,7 @@ server {
 	}
 
 	location /downloads {
-		root   <%= node[:nginx][:docroot] %>;
+    alias <%= node[:nginx][:docroot] %>;
 		index  index.html index.htm;
 		autoindex on;
 	}
