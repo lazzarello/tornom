@@ -1,17 +1,27 @@
+upstream sinatra {
+  server localhost:4567
+}
+
 server {
 	listen   80 default;
-	server_name  localhost;
+  server_name  <%= node[:cloud][:public_hostname] %>;
 
-	access_log  /var/log/nginx/localhost.access.log;
+  access_log  <%= node[:nginx][:access_log] %>;
 
-	location /bandwidth {
-	  alias /var/cache/munin/www/;
+	location /metrics {
+    alias <%= node[:nginx][:metrics] %>;
 	  index	index.html;
 	}
 
-	location / {
+	location /downloads {
 		root   <%= node[:nginx][:docroot] %>;
 		index  index.html index.htm;
 		autoindex on;
 	}
+
+  location / {
+    proxy_pass http://sinatra;
+    proxy_redirect off;
+    proxy_set_header Host $host;
+  }
 }
