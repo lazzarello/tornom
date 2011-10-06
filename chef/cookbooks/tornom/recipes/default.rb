@@ -17,6 +17,8 @@ package "librrd-dev"
 
 gem_package "librrd"
 gem_package "snmp"
+gem_package "sinatra"
+gem_package "haml"
 
 service "transmission-daemon" do
   supports :restart => true, :reload => true
