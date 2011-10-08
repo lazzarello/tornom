@@ -7,3 +7,7 @@ get '/' do
   @host = request.host
   haml :index
 end
+
+get '/download' do
+  haml :download
+end

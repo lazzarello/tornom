@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    %script{ :type => "text/javascript", :src => "lib/jquery/jquery-1.6.4.min.js"}
+    %script{ :type => "text/javascript", :src => "lib/pseudositer/pseudositer.js"}
+    :javascript
+        $(document).ready(function() {
+          $('#pseudositer').pseudositer('downloads/');
+        });
+  %title Browse and download files
+  %body
