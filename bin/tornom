@@ -78,7 +78,7 @@ server.wait_for {
   result = webserver.ping?
   if ( ready? && result == true )
     puts "Your tornom node is up"
-    puts "http://#{dns_name}:9091/"
+    puts "http://#{dns_name}/"
     break
   else
     puts "Waiting for services..."
